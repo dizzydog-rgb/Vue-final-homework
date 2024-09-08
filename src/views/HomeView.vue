@@ -46,8 +46,7 @@
             value="登入"
             @click="signIn"
           />
-          UID: {{ signInField }}
-          <a class="formControls_btnLink" href="#signUpPage">註冊帳號</a>
+          <router-link class="formControls_btnLink" to="/signup">註冊帳號</router-link>
         </form>
       </div>
     </div>
@@ -73,7 +72,7 @@ const signIn = async function () {
 
     // 檢查登入回應中的 token，確認是否成功登入
     if (res.data.token) {
-      document.cookie = `customTodoToken=${res.data.token}; path=/;`
+      document.cookie = `customTodoToken=${res.data.token}; path=/;`;
       console.log('Token saved to cookie')
 
       alert('登入成功，即將跳轉')
@@ -83,6 +82,10 @@ const signIn = async function () {
     }
   } catch (error) {
     console.log(error)
+    Object.assign(signInField.value, {
+      email: '',
+      password: ''
+    })
     alert('登入失敗')
   }
 }

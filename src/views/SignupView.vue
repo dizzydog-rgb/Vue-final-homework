@@ -52,14 +52,13 @@
             class="formControls_input"
             type="password"
             name="pwd"
-            id="pwd"
+            id="pwdChecked"
             placeholder="請再次輸入密碼"
             v-model="signUpField.passwordCheck"
             required
           />
-          {{ signUpField }}
           <input class="formControls_btnSubmit" type="button" value="註冊帳號" @click="signup" />
-          <a class="formControls_btnLink" href="#loginPage">登入</a>
+          <router-link class="formControls_btnLink" to="/">登入</router-link>
         </form>
       </div>
     </div>
@@ -81,21 +80,28 @@ const signUpField = ref({
   nickname: ''
 })
 
-const signUpRes = ref('')
+const signupRes = ref('')
 
 const signup = async function () {
-  // console.log(`${api}/user/sign_up`)
   if (signUpField.value.password === signUpField.value.passwordCheck) {
     try {
       const res = await axios.post(`${api}/users/sign_up`, signUpField.value)
-      signUpRes.value = res.data.uid
-      alert('註冊成功！即將跳轉...')
-      window.location.hash = '#todoListPage'
+      console.log(res.data)
+      signupRes.value = res.data.uid
+
+      router.push('/')
+      alert('註冊成功，即將跳轉到登入頁')
     } catch (error) {
       console.log(error)
       alert('註冊失敗，請重試')
     }
   } else {
+    Object.assign(signUpField.value, {
+      email: '',
+      password: '',
+      passwordCheck: '',
+      nickname: ''
+    })
     alert('請重新確認密碼')
   }
 }

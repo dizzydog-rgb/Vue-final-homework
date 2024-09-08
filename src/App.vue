@@ -5,11 +5,11 @@ import { RouterLink, RouterView } from 'vue-router'
 <template>
   <header>
     <div class="wrapper">
-      <nav>
+      <!-- <nav>
         <RouterLink to="/">SignIn</RouterLink>
-        <RouterLink to="/">SignUp</RouterLink>
+        <RouterLink to="/signup">SignUp</RouterLink>
         <RouterLink to="/todo">Todo</RouterLink>
-      </nav>
+      </nav> -->
     </div>
   </header>
 
